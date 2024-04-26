@@ -19,13 +19,12 @@ class PolutionNormalGame:
     
     def __str__(self):
         string = "\n"
-        whitespace = "                    "
-        string = string + whitespace + "Supervision".center(20) + "No Supervision".center(20) + "\n"
+        string = string + ("μ = " + str(self.mu)).center(20) + "Supervision".center(20) + "No Supervision".center(20) + "\n"
         string = string + "-" * 60 + "\n"
         string = string + "Pollution control".center(20) + ("("+str(self.normalFormGraph.get("entity").get("supervisionPollutionControl")) + ", " + str(self.normalFormGraph.get("government").get("supervisionPollutionControl")) + ")").center(20)
         string = string + ("(" + str(self.normalFormGraph.get("entity").get("noSupervisionPollutionControl")) + ", " + str(self.normalFormGraph.get("government").get("noSupervisionPollutionControl")) + ")").center(20) + "\n"
         string = string + "No Pollution control".center(20) + ("(" + str(self.normalFormGraph.get("entity").get("supervisionNoPollutionControl")) + ", " + str(self.normalFormGraph.get("government").get("supervisionNoPollutionControl")) + ")").center(20)
-        string = string + ("(" + str(self.normalFormGraph.get("entity").get("noSupervisionNoPollutionControl")) + ", " + str(self.normalFormGraph.get("government").get("noSupervisionNoPollutionControl")) + ")").center(20)
+        string = string + ("(" + str(self.normalFormGraph.get("entity").get("noSupervisionNoPollutionControl")) + ", " + str(self.normalFormGraph.get("government").get("noSupervisionNoPollutionControl")) + ")").center(20) + "\n"
         return string
     
     def getGovernmentPayout(self):
@@ -33,6 +32,12 @@ class PolutionNormalGame:
     
     def getEntityPayout(self):
         return self.entityPayout
+    
+    def getGovernmentStrategy(self):
+        return self.governmentStrategy
+    
+    def getEntityStrategy(self):
+        return self.entityStrategy
 
     def createNormalGraph(self):
         supervisionPollutionControl = (self.r-self.c1-self.c2, self.h-self.c3)
@@ -171,19 +176,3 @@ class PolutionNormalGame:
             self.entityPayout = self.normalFormGraph.get(player).get(self.governmentStrategy + self.entityStrategy[0].upper() + self.entityStrategy[1:])
         elif player == "government":
             self.governmentPayout = self.normalFormGraph.get(player).get(self.governmentStrategy + self.entityStrategy[0].upper() + self.entityStrategy[1:])
-
-    '''
-    #returns true if government chooses to supervise and false if government chooses not to supervise
-    def chooseGovStrat(probabilityOfControl):
-        if (govExpectedReturnWithSupervision > govExpectedReturnNoSupervision):
-            return True
-        else:
-            return False
-
-    #returns true if enterprise chooses to control pollution emissions and false if enterprise chooses not to control
-    def chooseEnterpriseStrat(probabilityOfSupervision):
-        if (enterpriseExpectedReturnWithControl > enterpriseExpectedReturnNoControl):
-            return True
-        else:
-            return False
-    '''

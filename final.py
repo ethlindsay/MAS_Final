@@ -4,14 +4,6 @@ from PolutionNormalGame import *
 from SimulationParameters import *
 from Graphing import *
 
-govExpectedReturnWithSupervision = 1
-govExpectedReturnNoSupervision = 1
-enterpriseExpectedReturnWithControl = 1
-enterpriseExpectedReturnNoControl = 1
-
-#probability of enterprise control = X
-#probability of government supervision = Y
-
 '''
 R: Economic Benefits of enterprise
 C1: Direct cost of production
@@ -31,25 +23,11 @@ party observation
 
 ASSUMPTION: When P < C2, the government punishment mechanism fails and the enterprise will not engage in pollution control.  So we must assume that P > C2 in
 in order to have impact.
-
-#Take inputs for variables
-R = int(input("Economic Benefits of Enterprise: "))
-C1 = int(input("Direct Cost of Production: "))
-C2 = int(input("Pollution Control Costs for Enterprise when engaging in pollution control strategy: "))
-P = int(input("Punishment costs, such as direct fines or profits lost from suspensions: "))
-C3 = int(input("Government Cost of Supervision: "))
-H = int(input("Repution/Public Image Return for Government: "))
-Mu = float(input("Strength of Third Party Supervision; 0 < x < 1: "))
-W1 = int(input("Cost of public image loss by enterprise: "))
-W2 = int(input("Cost of public image loss by government: "))
-
 '''
 
-simulation = PolutionNormalGame(100, 80, 1, 3, 50, 60, .5, 8, 100)
-print(simulation)
-print(simulation.entityPayout)
-
 parameters = SimulationParameters("entity", 100, 80, 5, 3, 50, 60, 8, 100)
-Graphing(parameters)
+Graphing(parameters).lineColors
 
+simulation = PolutionNormalGame(parameters.getR(), parameters.getC1(), parameters.getP(), parameters.getC2(), parameters.getC3(), parameters.getH(), .5, parameters.getW1(), parameters.getW2())
+print(simulation)
 
